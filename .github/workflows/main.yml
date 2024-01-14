@@ -1,0 +1,37 @@
+name: docker build
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  jellyfin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone
+        uses: actions/checkout@master
+      - name: build
+        uses: triptixx/action-docker-build@master
+        with:
+          repo: jellyfin-dev
+      - name: test
+        uses: triptixx/action-docker-test@master
+        with:
+          verbose: true
+          repo: jellyfin-dev
+          curl: :8096
+      - name: publish
+        uses: triptixx/action-docker-publish@master
+        with:
+          docker_username: ${{ secrets.docker_username }}
+          docker_password: ${{ secrets.docker_password }}
+          from: jellyfin-dev
+          repo: ${{ secrets.docker_username }}/jellyfin
+          tags: latest,%label org.label-schema.version | %auto
+      - name: docker-scout
+        uses: docker/scout-action@v1
+        with:
+          dockerhub-user: ${{ secrets.docker_username }}
+          dockerhub-password: ${{ secrets.docker_password }}
+          command: cves
+          image: ${{ secrets.docker_username }}/jellyfin:latest
