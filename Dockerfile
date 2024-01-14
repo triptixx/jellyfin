@@ -56,7 +56,7 @@ EXPOSE 8096/TCP
 HEALTHCHECK --start-period=10s --timeout=5s \
     CMD wget -qO /dev/null "http://localhost:8096/health"
 
-ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]
 CMD ["/usr/bin/jellyfin", \
     "--configdir", "/config", \
     "--datadir", "/config/data", \
