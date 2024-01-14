@@ -10,7 +10,7 @@ CONFIG_DIR='/config'
 for DIR in `echo $CONFIG_DIR | tr ';' '\n'`; do
     mkdir -p "$DIR"
 
-    if su-exec $SUID:$SGID [ ! -w "$DIR" ]; then
+    if gosu $SUID:$SGID [ ! -w "$DIR" ]; then
         2>&1 echo -e "${RED}####################### WARNING #######################${RESET}"
         2>&1 echo
         2>&1 echo -e "${RED}     No permission to write in '$DIR' directory.${RESET}"
