@@ -9,3 +9,29 @@
 [![Size](https://img.shields.io/docker/image-size/loxoo/jellyfin/latest)][hub]
 [![Docker Stars](https://img.shields.io/docker/stars/loxoo/jellyfin.svg)][hub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/loxoo/jellyfin.svg)][hub]
+
+## Usage
+
+```shell
+docker run -d \
+    --name=srvjellyfin \
+    --restart=unless-stopped \
+    --hostname=srvjellyfin \
+    -p 8096:8096 \
+    -v $PWD/config:/config \
+    loxoo/jellyfin
+```
+
+## Environment
+
+- `$SUID`                          - User ID to run as. _default: `942`_
+- `$SGID`                          - Group ID to run as. _default: `942`_
+- `$TZ`                            - Timezone. _optional_
+
+## Volume
+
+- `/config`                        - A path for storing jellyfin global config.
+
+## Network
+
+- `8096/tcp`                       - The port that jellyfin should listen for web connections on.
