@@ -57,10 +57,6 @@ HEALTHCHECK --start-period=10s --timeout=5s \
     CMD wget -qO /dev/null "http://localhost:8096/health"
 
 ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]
-CMD ["/usr/bin/jellyfin", \
-    "--configdir", "/config", \
-    "--datadir", "/config/data", \
-    "--cachedir", "/config/cache" \
-    "--logdir", "/config/log" \
-    "--webdir", "/usr/share/jellyfin/web" \
-    "--ffmpeg", "/usr/lib/jellyfin-ffmpeg/ffmpeg"]
+CMD ["/usr/bin/jellyfin", "--configdir=/config", "--datadir=/config/data", \
+    "--cachedir=/config/cache", "--logdir=/config/log", \
+    "--webdir=/usr/share/jellyfin/web", "--ffmpeg=/usr/lib/jellyfin-ffmpeg/ffmpeg"]
