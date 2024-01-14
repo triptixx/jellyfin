@@ -46,8 +46,13 @@ LABEL org.label-schema.name="jellyfin" \
 
 COPY --from=builder /output/ /
 
-RUN dpkg -i /deb_dpkg/*.deb; \
-    rm -rf /deb_dpkg
+RUN apt-get update; \
+    apt-get -y --no-install-recommends --no-install-suggests install \
+        ca-certificates; \
+    apt-get -y autopurge; \
+    apt-get clean; \
+    dpkg -i /deb_dpkg/*.deb; \
+    rm -rf /var/lib/apt/lists/* /deb_dpkg
 
 VOLUME ["/config"]
 
