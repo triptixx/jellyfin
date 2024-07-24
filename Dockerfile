@@ -26,8 +26,8 @@ $( awk -F'=' '/^VERSION_CODENAME=/{ print $NF }' /etc/os-release ) main" \
         | tee /etc/apt/sources.list.d/jellyfin.list; \
     apt-get update; \
     apt-get -y --no-install-recommends --no-install-suggests install \
-        jellyfin-server=${JELLYFIN_VER} \
-        jellyfin-web=${JELLYFIN_VER} \
+        jellyfin-server=${JELLYFIN_VER}+ubu${UBUNTU_TAG//.} \
+        jellyfin-web=${JELLYFIN_VER}+ubu${UBUNTU_TAG//.} \
         jellyfin-ffmpeg6; \
     mkdir -p /tmp/intel-compute-runtime; \
     wget -qO- https://api.github.com/repos/intel/compute-runtime/releases/tags/${INTEL_CR_VER} \
